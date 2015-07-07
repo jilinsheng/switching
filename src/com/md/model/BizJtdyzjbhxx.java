@@ -7,10 +7,9 @@ package com.md.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import javax.persistence.Basic;
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -21,12 +20,12 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Administrator
  */
 @Entity
-@Table(name = "BIZ_JTDYZJBHXX")
+@Table(name = "BIZ_JTDYZJBHXX", catalog = "", schema = "SWITCHING")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "BizJtdyzjbhxx.findAll", query = "SELECT b FROM BizJtdyzjbhxx b"),
-    @NamedQuery(name = "BizJtdyzjbhxx.findByXh", query = "SELECT b FROM BizJtdyzjbhxx b WHERE b.xh = :xh"),
-    @NamedQuery(name = "BizJtdyzjbhxx.findByJtlsid", query = "SELECT b FROM BizJtdyzjbhxx b WHERE b.jtlsid = :jtlsid"),
+    @NamedQuery(name = "BizJtdyzjbhxx.findByXh", query = "SELECT b FROM BizJtdyzjbhxx b WHERE b.bizJtdyzjbhxxPK.xh = :xh"),
+    @NamedQuery(name = "BizJtdyzjbhxx.findByJtlsid", query = "SELECT b FROM BizJtdyzjbhxx b WHERE b.bizJtdyzjbhxxPK.jtlsid = :jtlsid"),
     @NamedQuery(name = "BizJtdyzjbhxx.findByBhlx", query = "SELECT b FROM BizJtdyzjbhxx b WHERE b.bhlx = :bhlx"),
     @NamedQuery(name = "BizJtdyzjbhxx.findByZjbhje", query = "SELECT b FROM BizJtdyzjbhxx b WHERE b.zjbhje = :zjbhje"),
     @NamedQuery(name = "BizJtdyzjbhxx.findByBhrq", query = "SELECT b FROM BizJtdyzjbhxx b WHERE b.bhrq = :bhrq"),
@@ -35,47 +34,39 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "BizJtdyzjbhxx.findByCzsj", query = "SELECT b FROM BizJtdyzjbhxx b WHERE b.czsj = :czsj")})
 public class BizJtdyzjbhxx implements Serializable {
     private static final long serialVersionUID = 1L;
-    @Column(name = "XH")
-    private Long xh;
-    @Id
-    @Basic(optional = false)
-    @Column(name = "JTLSID")
-    private String jtlsid;
-    @Column(name = "BHLX")
+    @EmbeddedId
+    protected BizJtdyzjbhxxPK bizJtdyzjbhxxPK;
+    @Column(length = 3)
     private String bhlx;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(name = "ZJBHJE")
+    @Column(precision = 7, scale = 2)
     private BigDecimal zjbhje;
-    @Column(name = "BHRQ")
+    @Column(length = 10)
     private String bhrq;
-    @Column(name = "SXNY")
+    @Column(length = 10)
     private String sxny;
-    @Column(name = "ZLLX")
+    @Column(length = 1)
     private String zllx;
-    @Column(name = "CZSJ")
+    @Column(length = 19)
     private String czsj;
 
     public BizJtdyzjbhxx() {
     }
 
-    public BizJtdyzjbhxx(String jtlsid) {
-        this.jtlsid = jtlsid;
+    public BizJtdyzjbhxx(BizJtdyzjbhxxPK bizJtdyzjbhxxPK) {
+        this.bizJtdyzjbhxxPK = bizJtdyzjbhxxPK;
     }
 
-    public Long getXh() {
-        return xh;
+    public BizJtdyzjbhxx(long xh, String jtlsid) {
+        this.bizJtdyzjbhxxPK = new BizJtdyzjbhxxPK(xh, jtlsid);
     }
 
-    public void setXh(Long xh) {
-        this.xh = xh;
+    public BizJtdyzjbhxxPK getBizJtdyzjbhxxPK() {
+        return bizJtdyzjbhxxPK;
     }
 
-    public String getJtlsid() {
-        return jtlsid;
-    }
-
-    public void setJtlsid(String jtlsid) {
-        this.jtlsid = jtlsid;
+    public void setBizJtdyzjbhxxPK(BizJtdyzjbhxxPK bizJtdyzjbhxxPK) {
+        this.bizJtdyzjbhxxPK = bizJtdyzjbhxxPK;
     }
 
     public String getBhlx() {
@@ -129,7 +120,7 @@ public class BizJtdyzjbhxx implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (jtlsid != null ? jtlsid.hashCode() : 0);
+        hash += (bizJtdyzjbhxxPK != null ? bizJtdyzjbhxxPK.hashCode() : 0);
         return hash;
     }
 
@@ -140,7 +131,7 @@ public class BizJtdyzjbhxx implements Serializable {
             return false;
         }
         BizJtdyzjbhxx other = (BizJtdyzjbhxx) object;
-        if ((this.jtlsid == null && other.jtlsid != null) || (this.jtlsid != null && !this.jtlsid.equals(other.jtlsid))) {
+        if ((this.bizJtdyzjbhxxPK == null && other.bizJtdyzjbhxxPK != null) || (this.bizJtdyzjbhxxPK != null && !this.bizJtdyzjbhxxPK.equals(other.bizJtdyzjbhxxPK))) {
             return false;
         }
         return true;
@@ -148,7 +139,7 @@ public class BizJtdyzjbhxx implements Serializable {
 
     @Override
     public String toString() {
-        return "com.md.model.BizJtdyzjbhxx[ jtlsid=" + jtlsid + " ]";
+        return "com.md.model.BizJtdyzjbhxx[ bizJtdyzjbhxxPK=" + bizJtdyzjbhxxPK + " ]";
     }
     
 }

@@ -17,10 +17,10 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class BizJzdxjyxxPK implements Serializable {
     @Basic(optional = false)
-    @Column(name = "JYLSID")
+    @Column(nullable = false, length = 32)
     private String jylsid;
     @Basic(optional = false)
-    @Column(name = "RYLSID")
+    @Column(nullable = false, length = 32)
     private String rylsid;
 
     public BizJzdxjyxxPK() {

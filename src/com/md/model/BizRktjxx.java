@@ -20,7 +20,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Administrator
  */
 @Entity
-@Table(name = "BIZ_RKTJXX")
+@Table(name = "BIZ_RKTJXX", catalog = "", schema = "SWITCHING")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "BizRktjxx.findAll", query = "SELECT b FROM BizRktjxx b"),
@@ -33,21 +33,18 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "BizRktjxx.findByCzsj", query = "SELECT b FROM BizRktjxx b WHERE b.czsj = :czsj")})
 public class BizRktjxx implements Serializable {
     private static final long serialVersionUID = 1L;
-    @Column(name = "XH")
     private Long xh;
     @Id
     @Basic(optional = false)
-    @Column(name = "QXXZQHBM")
+    @Column(nullable = false, length = 12)
     private String qxxzqhbm;
-    @Column(name = "FNYRKS")
     private Long fnyrks;
-    @Column(name = "NYRKS")
     private Long nyrks;
-    @Column(name = "TJND")
+    @Column(length = 4)
     private String tjnd;
-    @Column(name = "ZLLX")
+    @Column(length = 1)
     private String zllx;
-    @Column(name = "CZSJ")
+    @Column(length = 19)
     private String czsj;
 
     public BizRktjxx() {

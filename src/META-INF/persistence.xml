@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
-  <persistence-unit name="switchPU" transaction-type="RESOURCE_LOCAL">
+    <persistence-unit name="switchPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>com.md.model.BizJzdxjyxx</class>
     <class>com.md.model.BizZjjsxx</class>
@@ -28,11 +28,54 @@
     <class>com.md.model.BizJzdxjbxx</class>
     <class>com.md.model.VTjOrg</class>
     <class>com.md.model.BizZjbfxx</class>
+    <class>com.md.model.VFfxx</class>
+    <class>com.md.model.CcsBizstatus</class>
+    <class>com.md.model.CcsMemberinfo</class>
+    <class>com.md.model.CcsFamilyinfo</class>
+    <class>com.md.model.VMemberbaseinfo</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:oracle:thin:@10.6.0.44:1521:orcl2"/>
       <property name="javax.persistence.jdbc.user" value="switching"/>
       <property name="javax.persistence.jdbc.driver" value="oracle.jdbc.OracleDriver"/>
       <property name="javax.persistence.jdbc.password" value="00201500"/>
+    </properties>
+  </persistence-unit>
+    <persistence-unit name="shengcsPU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>com.md.model.shengcs.Usercompanyinfo</class>
+    <class>com.md.model.shengcs.Salvationbatch</class>
+    <class>com.md.model.shengcs.Family</class>
+    <class>com.md.model.shengcs.BatchAlmsreckoning</class>
+    <class>com.md.model.shengcs.Salvationtype</class>
+    <class>com.md.model.shengcs.Organno</class>
+    <class>com.md.model.shengcs.Familymember</class>
+    <class>com.md.model.shengcs.Salvationstatus</class>
+    <class>com.md.model.shengcs.Familyinfo</class>
+    <class>com.md.model.shengcs.Familymemberinfo</class>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:oracle:thin:@10.1.0.21:1521:jldb1"/>
+      <property name="javax.persistence.jdbc.user" value="jldbcs"/>
+      <property name="javax.persistence.jdbc.driver" value="oracle.jdbc.OracleDriver"/>
+      <property name="javax.persistence.jdbc.password" value="jldbcs"/>
+    </properties>
+  </persistence-unit>
+    <persistence-unit name="shengncPU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>com.md.model.shengnc.BizTOptacc</class>
+    <class>com.md.model.shengnc.BizTOptcheck</class>
+    <class>com.md.model.shengnc.BizTOptcheck2</class>
+    <class>com.md.model.shengnc.BizTOptcheckidea</class>
+    <class>com.md.model.shengnc.BizTOptcheckidea2</class>
+    <class>com.md.model.shengnc.DoperTPolicy</class>
+    <class>com.md.model.shengnc.ImplTAccoptcheck</class>
+    <class>com.md.model.shengnc.InfoTFamily</class>
+    <class>com.md.model.shengnc.InfoTMember</class>
+    <class>com.md.model.shengnc.SysTOrganization</class>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:oracle:thin:@10.1.0.33:1521:ncdb1"/>
+      <property name="javax.persistence.jdbc.user" value="summer"/>
+      <property name="javax.persistence.jdbc.driver" value="oracle.jdbc.OracleDriver"/>
+      <property name="javax.persistence.jdbc.password" value="summer"/>
     </properties>
   </persistence-unit>
 </persistence>

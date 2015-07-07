@@ -21,7 +21,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Administrator
  */
 @Entity
-@Table(name = "BIZ_ZJLYXX")
+@Table(name = "BIZ_ZJLYXX", catalog = "", schema = "SWITCHING")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "BizZjlyxx.findAll", query = "SELECT b FROM BizZjlyxx b"),
@@ -35,24 +35,23 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "BizZjlyxx.findByCzsj", query = "SELECT b FROM BizZjlyxx b WHERE b.czsj = :czsj")})
 public class BizZjlyxx implements Serializable {
     private static final long serialVersionUID = 1L;
-    @Column(name = "XH")
     private Long xh;
     @Id
     @Basic(optional = false)
-    @Column(name = "ZJKM")
+    @Column(nullable = false, length = 3)
     private String zjkm;
-    @Column(name = "ZJLY")
+    @Column(length = 3)
     private String zjly;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(name = "JE")
+    @Column(precision = 15, scale = 2)
     private BigDecimal je;
-    @Column(name = "ZJDZRQ")
+    @Column(length = 10)
     private String zjdzrq;
-    @Column(name = "JGID")
+    @Column(length = 32)
     private String jgid;
-    @Column(name = "ZLLX")
+    @Column(length = 1)
     private String zllx;
-    @Column(name = "CZSJ")
+    @Column(length = 19)
     private String czsj;
 
     public BizZjlyxx() {

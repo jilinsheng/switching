@@ -20,7 +20,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Administrator
  */
 @Entity
-@Table(name = "BIZ_JZDXGZDWXX")
+@Table(name = "BIZ_JZDXGZDWXX", catalog = "", schema = "SWITCHING")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "BizJzdxgzdwxx.findAll", query = "SELECT b FROM BizJzdxgzdwxx b"),
@@ -36,27 +36,26 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "BizJzdxgzdwxx.findByCzsj", query = "SELECT b FROM BizJzdxgzdwxx b WHERE b.czsj = :czsj")})
 public class BizJzdxgzdwxx implements Serializable {
     private static final long serialVersionUID = 1L;
-    @Column(name = "XH")
     private Long xh;
     @Id
     @Basic(optional = false)
-    @Column(name = "GZDWLSID")
+    @Column(nullable = false, length = 32)
     private String gzdwlsid;
-    @Column(name = "RYLSID")
+    @Column(length = 32)
     private String rylsid;
-    @Column(name = "CYSFZHM")
+    @Column(length = 18)
     private String cysfzhm;
-    @Column(name = "DWMC")
+    @Column(length = 50)
     private String dwmc;
-    @Column(name = "DWXZ")
+    @Column(length = 3)
     private String dwxz;
-    @Column(name = "LXDH")
+    @Column(length = 50)
     private String lxdh;
-    @Column(name = "DZ")
+    @Column(length = 60)
     private String dz;
-    @Column(name = "ZLLX")
+    @Column(length = 1)
     private String zllx;
-    @Column(name = "CZSJ")
+    @Column(length = 19)
     private String czsj;
 
     public BizJzdxgzdwxx() {

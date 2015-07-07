@@ -90,7 +90,7 @@ public class GenBase {
 
             String xmlns_tns = "http://www.mca.gov.cn/head.xsd/";
             String user_num = "jilin";
-            String zone_code = "220000000000";
+            String zone_code = "22";
             String org_name = "吉林省";
             String create_time = sdf2.format(new Date());
             String version_number = serialno;

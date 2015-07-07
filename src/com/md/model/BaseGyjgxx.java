@@ -21,7 +21,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Administrator
  */
 @Entity
-@Table(name = "BASE_GYJGXX")
+@Table(name = "BASE_GYJGXX", catalog = "", schema = "SWITCHING")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "BaseGyjgxx.findAll", query = "SELECT b FROM BaseGyjgxx b"),
@@ -45,44 +45,42 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "BaseGyjgxx.findByCzsj", query = "SELECT b FROM BaseGyjgxx b WHERE b.czsj = :czsj")})
 public class BaseGyjgxx implements Serializable {
     private static final long serialVersionUID = 1L;
-    @Column(name = "XH")
     private Integer xh;
     @Id
     @Basic(optional = false)
-    @Column(name = "JGID")
+    @Column(nullable = false, length = 32)
     private String jgid;
-    @Column(name = "JGBM")
+    @Column(length = 18)
     private String jgbm;
-    @Column(name = "JGMC")
+    @Column(length = 50)
     private String jgmc;
-    @Column(name = "ND")
+    @Column(length = 4)
     private String nd;
-    @Column(name = "SJJGID")
+    @Column(length = 32)
     private String sjjgid;
-    @Column(name = "XZQHBM")
+    @Column(length = 12)
     private String xzqhbm;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(name = "JZMJ")
+    @Column(precision = 8, scale = 2)
     private BigDecimal jzmj;
-    @Column(name = "ZDMJ")
+    @Column(precision = 8, scale = 2)
     private BigDecimal zdmj;
-    @Column(name = "CWSL")
     private Integer cwsl;
-    @Column(name = "GDZC")
+    @Column(precision = 15, scale = 2)
     private BigDecimal gdzc;
-    @Column(name = "NJRSR")
+    @Column(precision = 15, scale = 2)
     private BigDecimal njrsr;
-    @Column(name = "NGZZCZE")
+    @Column(precision = 15, scale = 2)
     private BigDecimal ngzzcze;
-    @Column(name = "NRCGLJF")
+    @Column(precision = 15, scale = 2)
     private BigDecimal nrcgljf;
-    @Column(name = "GKJZJ")
+    @Column(precision = 15, scale = 2)
     private BigDecimal gkjzj;
-    @Column(name = "GKJRQ")
+    @Column(length = 10)
     private String gkjrq;
-    @Column(name = "ZLLX")
+    @Column(length = 1)
     private String zllx;
-    @Column(name = "CZSJ")
+    @Column(length = 19)
     private String czsj;
 
     public BaseGyjgxx() {

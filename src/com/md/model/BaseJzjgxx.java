@@ -24,7 +24,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Administrator
  */
 @Entity
-@Table(name = "BASE_JZJGXX")
+@Table(name = "BASE_JZJGXX", catalog = "", schema = "SWITCHING")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "BaseJzjgxx.findAll", query = "SELECT b FROM BaseJzjgxx b"),
@@ -45,39 +45,34 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "BaseJzjgxx.findByOper", query = "SELECT b FROM BaseJzjgxx b WHERE b.oper = :oper")})
 public class BaseJzjgxx implements Serializable {
     private static final long serialVersionUID = 1L;
-    @Column(name = "XH")
     private Integer xh;
     @Id
     @Basic(optional = false)
-    @Column(name = "JGID")
+    @Column(nullable = false, length = 32)
     private String jgid;
-    @Column(name = "JGBM")
+    @Column(length = 18)
     private String jgbm;
-    @Column(name = "JGMC")
+    @Column(length = 50)
     private String jgmc;
-    @Column(name = "SJJGID")
+    @Column(length = 32)
     private String sjjgid;
-    @Column(name = "XZQHBM")
+    @Column(length = 12)
     private String xzqhbm;
-    @Column(name = "GZRS")
     private Integer gzrs;
-    @Column(name = "ZZRS")
     private Integer zzrs;
-    @Column(name = "JZRS")
     private Integer jzrs;
-    @Column(name = "ND")
+    @Column(length = 4)
     private String nd;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(name = "NDGZJF")
+    @Column(precision = 15, scale = 2)
     private BigDecimal ndgzjf;
-    @Column(name = "ZLLX")
+    @Column(length = 1)
     private String zllx;
-    @Column(name = "CZSJ")
+    @Column(length = 19)
     private String czsj;
-    @Column(name = "CTIME")
     @Temporal(TemporalType.TIMESTAMP)
     private Date ctime;
-    @Column(name = "OPER")
+    @Column(length = 128)
     private String oper;
 
     public BaseJzjgxx() {

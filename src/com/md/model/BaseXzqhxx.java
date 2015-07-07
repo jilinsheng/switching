@@ -23,7 +23,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Administrator
  */
 @Entity
-@Table(name = "BASE_XZQHXX")
+@Table(name = "BASE_XZQHXX", catalog = "", schema = "SWITCHING")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "BaseXzqhxx.findAll", query = "SELECT b FROM BaseXzqhxx b"),
@@ -37,34 +37,38 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "BaseXzqhxx.findByZllx", query = "SELECT b FROM BaseXzqhxx b WHERE b.zllx = :zllx"),
     @NamedQuery(name = "BaseXzqhxx.findByCzsj", query = "SELECT b FROM BaseXzqhxx b WHERE b.czsj = :czsj"),
     @NamedQuery(name = "BaseXzqhxx.findByCtime", query = "SELECT b FROM BaseXzqhxx b WHERE b.ctime = :ctime"),
-    @NamedQuery(name = "BaseXzqhxx.findByOper", query = "SELECT b FROM BaseXzqhxx b WHERE b.oper = :oper")})
+    @NamedQuery(name = "BaseXzqhxx.findByOper", query = "SELECT b FROM BaseXzqhxx b WHERE b.oper = :oper"),
+    @NamedQuery(name = "BaseXzqhxx.findByOOrgno", query = "SELECT b FROM BaseXzqhxx b WHERE b.oOrgno = :oOrgno"),
+    @NamedQuery(name = "BaseXzqhxx.findByOParentno", query = "SELECT b FROM BaseXzqhxx b WHERE b.oParentno = :oParentno")})
 public class BaseXzqhxx implements Serializable {
     private static final long serialVersionUID = 1L;
-    @Column(name = "XH")
     private Integer xh;
     @Id
     @Basic(optional = false)
-    @Column(name = "XZQHID")
+    @Column(nullable = false, length = 32)
     private String xzqhid;
-    @Column(name = "XZQHBM")
+    @Column(length = 12)
     private String xzqhbm;
-    @Column(name = "XZQHMC")
+    @Column(length = 100)
     private String xzqhmc;
-    @Column(name = "XZJB")
+    @Column(length = 1)
     private String xzjb;
-    @Column(name = "SJXZQHID")
+    @Column(length = 32)
     private String sjxzqhid;
-    @Column(name = "ZT")
+    @Column(length = 1)
     private String zt;
-    @Column(name = "ZLLX")
+    @Column(length = 1)
     private String zllx;
-    @Column(name = "CZSJ")
+    @Column(length = 19)
     private String czsj;
-    @Column(name = "CTIME")
     @Temporal(TemporalType.TIMESTAMP)
     private Date ctime;
-    @Column(name = "OPER")
+    @Column(length = 128)
     private String oper;
+    @Column(name = "O_ORGNO", length = 12)
+    private String oOrgno;
+    @Column(name = "O_PARENTNO", length = 12)
+    private String oParentno;
 
     public BaseXzqhxx() {
     }
@@ -159,6 +163,22 @@ public class BaseXzqhxx implements Serializable {
 
     public void setOper(String oper) {
         this.oper = oper;
+    }
+
+    public String getOOrgno() {
+        return oOrgno;
+    }
+
+    public void setOOrgno(String oOrgno) {
+        this.oOrgno = oOrgno;
+    }
+
+    public String getOParentno() {
+        return oParentno;
+    }
+
+    public void setOParentno(String oParentno) {
+        this.oParentno = oParentno;
     }
 
     @Override

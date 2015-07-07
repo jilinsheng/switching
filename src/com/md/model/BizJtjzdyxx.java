@@ -21,7 +21,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Administrator
  */
 @Entity
-@Table(name = "BIZ_JTJZDYXX")
+@Table(name = "BIZ_JTJZDYXX", catalog = "", schema = "SWITCHING")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "BizJtjzdyxx.findAll", query = "SELECT b FROM BizJtjzdyxx b"),
@@ -35,34 +35,35 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "BizJtjzdyxx.findByJzje", query = "SELECT b FROM BizJtjzdyxx b WHERE b.jzje = :jzje"),
     @NamedQuery(name = "BizJtjzdyxx.findByJzywlx", query = "SELECT b FROM BizJtjzdyxx b WHERE b.jzywlx = :jzywlx"),
     @NamedQuery(name = "BizJtjzdyxx.findByZllx", query = "SELECT b FROM BizJtjzdyxx b WHERE b.zllx = :zllx"),
-    @NamedQuery(name = "BizJtjzdyxx.findByCzsj", query = "SELECT b FROM BizJtjzdyxx b WHERE b.czsj = :czsj")})
+    @NamedQuery(name = "BizJtjzdyxx.findByCzsj", query = "SELECT b FROM BizJtjzdyxx b WHERE b.czsj = :czsj"),
+    @NamedQuery(name = "BizJtjzdyxx.findByOXzqhbm", query = "SELECT b FROM BizJtjzdyxx b WHERE b.oXzqhbm = :oXzqhbm")})
 public class BizJtjzdyxx implements Serializable {
     private static final long serialVersionUID = 1L;
-    @Column(name = "XH")
     private Long xh;
     @Id
     @Basic(optional = false)
-    @Column(name = "JTLSID")
+    @Column(nullable = false, length = 32)
     private String jtlsid;
-    @Column(name = "KSNY")
+    @Column(length = 6)
     private String ksny;
-    @Column(name = "JSNY")
+    @Column(length = 6)
     private String jsny;
-    @Column(name = "JZSW")
+    @Column(length = 15)
     private String jzsw;
-    @Column(name = "SL")
     private Short sl;
-    @Column(name = "DW")
+    @Column(length = 15)
     private String dw;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(name = "JZJE")
+    @Column(precision = 7, scale = 2)
     private BigDecimal jzje;
-    @Column(name = "JZYWLX")
+    @Column(length = 3)
     private String jzywlx;
-    @Column(name = "ZLLX")
+    @Column(length = 1)
     private String zllx;
-    @Column(name = "CZSJ")
+    @Column(length = 19)
     private String czsj;
+    @Column(name = "O_XZQHBM", length = 32)
+    private String oXzqhbm;
 
     public BizJtjzdyxx() {
     }
@@ -157,6 +158,14 @@ public class BizJtjzdyxx implements Serializable {
 
     public void setCzsj(String czsj) {
         this.czsj = czsj;
+    }
+
+    public String getOXzqhbm() {
+        return oXzqhbm;
+    }
+
+    public void setOXzqhbm(String oXzqhbm) {
+        this.oXzqhbm = oXzqhbm;
     }
 
     @Override

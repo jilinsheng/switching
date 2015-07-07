@@ -19,7 +19,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Administrator
  */
 @Entity
-@Table(name = "BIZ_JZDXJYXX")
+@Table(name = "BIZ_JZDXJYXX", catalog = "", schema = "SWITCHING")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "BizJzdxjyxx.findAll", query = "SELECT b FROM BizJzdxjyxx b"),
@@ -37,21 +37,20 @@ public class BizJzdxjyxx implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected BizJzdxjyxxPK bizJzdxjyxxPK;
-    @Column(name = "XH")
     private Long xh;
-    @Column(name = "CYSFZHM")
+    @Column(length = 18)
     private String cysfzhm;
-    @Column(name = "XXMC")
+    @Column(length = 50)
     private String xxmc;
-    @Column(name = "XXLB")
+    @Column(length = 2)
     private String xxlb;
-    @Column(name = "RXSJ")
+    @Column(length = 10)
     private String rxsj;
-    @Column(name = "BYSJ")
+    @Column(length = 10)
     private String bysj;
-    @Column(name = "ZLLX")
+    @Column(length = 1)
     private String zllx;
-    @Column(name = "CZSJ")
+    @Column(length = 19)
     private String czsj;
 
     public BizJzdxjyxx() {

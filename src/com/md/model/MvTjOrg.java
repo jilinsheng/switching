@@ -21,7 +21,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Administrator
  */
 @Entity
-@Table(name = "MV_TJ_ORG")
+@Table(name = "MV_TJ_ORG", catalog = "", schema = "SWITCHING")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "MvTjOrg.findAll", query = "SELECT m FROM MvTjOrg m"),
@@ -34,15 +34,14 @@ public class MvTjOrg implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @Column(name = "ORGID")
+    @Column(nullable = false, length = 50)
     private String orgid;
-    @Column(name = "ORGNAME")
+    @Column(length = 100)
     private String orgname;
-    @Column(name = "PARENTID")
+    @Column(length = 50)
     private String parentid;
-    @Column(name = "LAYER")
     private BigInteger layer;
-    @Column(name = "YFFULLNAME")
+    @Column(length = 200)
     private String yffullname;
 
     public MvTjOrg() {

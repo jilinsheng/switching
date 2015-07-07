@@ -21,7 +21,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Administrator
  */
 @Entity
-@Table(name = "BIZ_FFXX")
+@Table(name = "BIZ_FFXX", catalog = "", schema = "SWITCHING")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "BizFfxx.findAll", query = "SELECT b FROM BizFfxx b"),
@@ -45,44 +45,41 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "BizFfxx.findByCzsj", query = "SELECT b FROM BizFfxx b WHERE b.czsj = :czsj")})
 public class BizFfxx implements Serializable {
     private static final long serialVersionUID = 1L;
-    @Column(name = "XH")
     private Long xh;
     @Id
     @Basic(optional = false)
-    @Column(name = "FFXXID")
+    @Column(nullable = false, length = 32)
     private String ffxxid;
-    @Column(name = "ZJZHID")
+    @Column(length = 32)
     private String zjzhid;
-    @Column(name = "FFNY")
+    @Column(length = 6)
     private String ffny;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(name = "FFJE")
+    @Column(precision = 9, scale = 2)
     private BigDecimal ffje;
-    @Column(name = "FFRS")
     private Integer ffrs;
-    @Column(name = "FFLX")
+    @Column(length = 3)
     private String fflx;
-    @Column(name = "JBR")
+    @Column(length = 32)
     private String jbr;
-    @Column(name = "SPR")
+    @Column(length = 32)
     private String spr;
-    @Column(name = "FFZT")
     private Character ffzt;
-    @Column(name = "FFFS")
+    @Column(length = 3)
     private String fffs;
-    @Column(name = "JZYWBM")
+    @Column(length = 15)
     private String jzywbm;
-    @Column(name = "BZ")
+    @Column(length = 500)
     private String bz;
-    @Column(name = "CZY")
+    @Column(length = 32)
     private String czy;
-    @Column(name = "JBJG")
+    @Column(length = 32)
     private String jbjg;
-    @Column(name = "XZQHBM")
+    @Column(length = 12)
     private String xzqhbm;
-    @Column(name = "ZLLX")
+    @Column(length = 1)
     private String zllx;
-    @Column(name = "CZSJ")
+    @Column(length = 19)
     private String czsj;
 
     public BizFfxx() {

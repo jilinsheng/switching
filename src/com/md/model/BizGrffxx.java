@@ -33,7 +33,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "BizGrffxx.findByFfje", query = "SELECT b FROM BizGrffxx b WHERE b.ffje = :ffje"),
     @NamedQuery(name = "BizGrffxx.findByRybm", query = "SELECT b FROM BizGrffxx b WHERE b.rybm = :rybm"),
     @NamedQuery(name = "BizGrffxx.findByZllx", query = "SELECT b FROM BizGrffxx b WHERE b.zllx = :zllx"),
-    @NamedQuery(name = "BizGrffxx.findByCzsj", query = "SELECT b FROM BizGrffxx b WHERE b.czsj = :czsj")})
+    @NamedQuery(name = "BizGrffxx.findByCzsj", query = "SELECT b FROM BizGrffxx b WHERE b.czsj = :czsj"),
+    @NamedQuery(name = "BizGrffxx.findByOXzqhbm", query = "SELECT b FROM BizGrffxx b WHERE b.oXzqhbm = :oXzqhbm")})
 public class BizGrffxx implements Serializable {
     private static final long serialVersionUID = 1L;
     @Column(name = "XH")
@@ -57,6 +58,8 @@ public class BizGrffxx implements Serializable {
     private String zllx;
     @Column(name = "CZSJ")
     private String czsj;
+    @Column(name = "O_XZQHBM")
+    private String oXzqhbm;
 
     public BizGrffxx() {
     }
@@ -135,6 +138,14 @@ public class BizGrffxx implements Serializable {
 
     public void setCzsj(String czsj) {
         this.czsj = czsj;
+    }
+
+    public String getOXzqhbm() {
+        return oXzqhbm;
+    }
+
+    public void setOXzqhbm(String oXzqhbm) {
+        this.oXzqhbm = oXzqhbm;
     }
 
     @Override

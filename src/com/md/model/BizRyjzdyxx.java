@@ -7,10 +7,9 @@ package com.md.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import javax.persistence.Basic;
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -21,12 +20,12 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Administrator
  */
 @Entity
-@Table(name = "BIZ_RYJZDYXX")
+@Table(name = "BIZ_RYJZDYXX", catalog = "", schema = "SWITCHING")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "BizRyjzdyxx.findAll", query = "SELECT b FROM BizRyjzdyxx b"),
-    @NamedQuery(name = "BizRyjzdyxx.findByXh", query = "SELECT b FROM BizRyjzdyxx b WHERE b.xh = :xh"),
-    @NamedQuery(name = "BizRyjzdyxx.findByRylsid", query = "SELECT b FROM BizRyjzdyxx b WHERE b.rylsid = :rylsid"),
+    @NamedQuery(name = "BizRyjzdyxx.findByXh", query = "SELECT b FROM BizRyjzdyxx b WHERE b.bizRyjzdyxxPK.xh = :xh"),
+    @NamedQuery(name = "BizRyjzdyxx.findByRylsid", query = "SELECT b FROM BizRyjzdyxx b WHERE b.bizRyjzdyxxPK.rylsid = :rylsid"),
     @NamedQuery(name = "BizRyjzdyxx.findByCysfzhm", query = "SELECT b FROM BizRyjzdyxx b WHERE b.cysfzhm = :cysfzhm"),
     @NamedQuery(name = "BizRyjzdyxx.findByKsny", query = "SELECT b FROM BizRyjzdyxx b WHERE b.ksny = :ksny"),
     @NamedQuery(name = "BizRyjzdyxx.findByJsny", query = "SELECT b FROM BizRyjzdyxx b WHERE b.jsny = :jsny"),
@@ -38,62 +37,56 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "BizRyjzdyxx.findByJzywlx", query = "SELECT b FROM BizRyjzdyxx b WHERE b.jzywlx = :jzywlx"),
     @NamedQuery(name = "BizRyjzdyxx.findByJzxmbm", query = "SELECT b FROM BizRyjzdyxx b WHERE b.jzxmbm = :jzxmbm"),
     @NamedQuery(name = "BizRyjzdyxx.findByZllx", query = "SELECT b FROM BizRyjzdyxx b WHERE b.zllx = :zllx"),
-    @NamedQuery(name = "BizRyjzdyxx.findByCzsj", query = "SELECT b FROM BizRyjzdyxx b WHERE b.czsj = :czsj")})
+    @NamedQuery(name = "BizRyjzdyxx.findByCzsj", query = "SELECT b FROM BizRyjzdyxx b WHERE b.czsj = :czsj"),
+    @NamedQuery(name = "BizRyjzdyxx.findByOXzqhbm", query = "SELECT b FROM BizRyjzdyxx b WHERE b.oXzqhbm = :oXzqhbm")})
 public class BizRyjzdyxx implements Serializable {
     private static final long serialVersionUID = 1L;
-    @Column(name = "XH")
-    private Long xh;
-    @Id
-    @Basic(optional = false)
-    @Column(name = "RYLSID")
-    private String rylsid;
-    @Column(name = "CYSFZHM")
+    @EmbeddedId
+    protected BizRyjzdyxxPK bizRyjzdyxxPK;
+    @Column(length = 18)
     private String cysfzhm;
-    @Column(name = "KSNY")
+    @Column(length = 6)
     private String ksny;
-    @Column(name = "JSNY")
+    @Column(length = 6)
     private String jsny;
-    @Column(name = "JZSW")
+    @Column(length = 15)
     private String jzsw;
-    @Column(name = "SL")
     private Short sl;
-    @Column(name = "DW")
+    @Column(length = 15)
     private String dw;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(name = "JZJE")
+    @Column(precision = 7, scale = 2)
     private BigDecimal jzje;
-    @Column(name = "DYSS")
+    @Column(length = 3)
     private String dyss;
-    @Column(name = "JZYWLX")
+    @Column(length = 3)
     private String jzywlx;
-    @Column(name = "JZXMBM")
+    @Column(length = 3)
     private String jzxmbm;
-    @Column(name = "ZLLX")
+    @Column(length = 1)
     private String zllx;
-    @Column(name = "CZSJ")
+    @Column(length = 19)
     private String czsj;
+    @Column(name = "O_XZQHBM", length = 32)
+    private String oXzqhbm;
 
     public BizRyjzdyxx() {
     }
 
-    public BizRyjzdyxx(String rylsid) {
-        this.rylsid = rylsid;
+    public BizRyjzdyxx(BizRyjzdyxxPK bizRyjzdyxxPK) {
+        this.bizRyjzdyxxPK = bizRyjzdyxxPK;
     }
 
-    public Long getXh() {
-        return xh;
+    public BizRyjzdyxx(long xh, String rylsid) {
+        this.bizRyjzdyxxPK = new BizRyjzdyxxPK(xh, rylsid);
     }
 
-    public void setXh(Long xh) {
-        this.xh = xh;
+    public BizRyjzdyxxPK getBizRyjzdyxxPK() {
+        return bizRyjzdyxxPK;
     }
 
-    public String getRylsid() {
-        return rylsid;
-    }
-
-    public void setRylsid(String rylsid) {
-        this.rylsid = rylsid;
+    public void setBizRyjzdyxxPK(BizRyjzdyxxPK bizRyjzdyxxPK) {
+        this.bizRyjzdyxxPK = bizRyjzdyxxPK;
     }
 
     public String getCysfzhm() {
@@ -192,10 +185,18 @@ public class BizRyjzdyxx implements Serializable {
         this.czsj = czsj;
     }
 
+    public String getOXzqhbm() {
+        return oXzqhbm;
+    }
+
+    public void setOXzqhbm(String oXzqhbm) {
+        this.oXzqhbm = oXzqhbm;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (rylsid != null ? rylsid.hashCode() : 0);
+        hash += (bizRyjzdyxxPK != null ? bizRyjzdyxxPK.hashCode() : 0);
         return hash;
     }
 
@@ -206,7 +207,7 @@ public class BizRyjzdyxx implements Serializable {
             return false;
         }
         BizRyjzdyxx other = (BizRyjzdyxx) object;
-        if ((this.rylsid == null && other.rylsid != null) || (this.rylsid != null && !this.rylsid.equals(other.rylsid))) {
+        if ((this.bizRyjzdyxxPK == null && other.bizRyjzdyxxPK != null) || (this.bizRyjzdyxxPK != null && !this.bizRyjzdyxxPK.equals(other.bizRyjzdyxxPK))) {
             return false;
         }
         return true;
@@ -214,7 +215,7 @@ public class BizRyjzdyxx implements Serializable {
 
     @Override
     public String toString() {
-        return "com.md.model.BizRyjzdyxx[ rylsid=" + rylsid + " ]";
+        return "com.md.model.BizRyjzdyxx[ bizRyjzdyxxPK=" + bizRyjzdyxxPK + " ]";
     }
     
 }

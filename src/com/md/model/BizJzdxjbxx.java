@@ -15,6 +15,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -22,7 +23,8 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Administrator
  */
 @Entity
-@Table(name = "BIZ_JZDXJBXX")
+@Table(name = "BIZ_JZDXJBXX", catalog = "", schema = "SWITCHING", uniqueConstraints = {
+    @UniqueConstraint(columnNames = {"O_MEMBERID"})})
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "BizJzdxjbxx.findAll", query = "SELECT b FROM BizJzdxjbxx b"),
@@ -60,78 +62,100 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "BizJzdxjbxx.findByXyzk", query = "SELECT b FROM BizJzdxjbxx b WHERE b.xyzk = :xyzk"),
     @NamedQuery(name = "BizJzdxjbxx.findByZllx", query = "SELECT b FROM BizJzdxjbxx b WHERE b.zllx = :zllx"),
     @NamedQuery(name = "BizJzdxjbxx.findByCzsj", query = "SELECT b FROM BizJzdxjbxx b WHERE b.czsj = :czsj"),
-    @NamedQuery(name = "BizJzdxjbxx.findByDbzh", query = "SELECT b FROM BizJzdxjbxx b WHERE b.dbzh = :dbzh")})
+    @NamedQuery(name = "BizJzdxjbxx.findByDbzh", query = "SELECT b FROM BizJzdxjbxx b WHERE b.dbzh = :dbzh"),
+    @NamedQuery(name = "BizJzdxjbxx.findByOFid", query = "SELECT b FROM BizJzdxjbxx b WHERE b.oFid = :oFid"),
+    @NamedQuery(name = "BizJzdxjbxx.findByOMemberid", query = "SELECT b FROM BizJzdxjbxx b WHERE b.oMemberid = :oMemberid"),
+    @NamedQuery(name = "BizJzdxjbxx.findByOIdno", query = "SELECT b FROM BizJzdxjbxx b WHERE b.oIdno = :oIdno"),
+    @NamedQuery(name = "BizJzdxjbxx.findByOId15", query = "SELECT b FROM BizJzdxjbxx b WHERE b.oId15 = :oId15"),
+    @NamedQuery(name = "BizJzdxjbxx.findByOId18", query = "SELECT b FROM BizJzdxjbxx b WHERE b.oId18 = :oId18"),
+    @NamedQuery(name = "BizJzdxjbxx.findByOIdck", query = "SELECT b FROM BizJzdxjbxx b WHERE b.oIdck = :oIdck"),
+    @NamedQuery(name = "BizJzdxjbxx.findByOBirthday", query = "SELECT b FROM BizJzdxjbxx b WHERE b.oBirthday = :oBirthday"),
+    @NamedQuery(name = "BizJzdxjbxx.findByONation", query = "SELECT b FROM BizJzdxjbxx b WHERE b.oNation = :oNation")})
 public class BizJzdxjbxx implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected BizJzdxjbxxPK bizJzdxjbxxPK;
-    @Column(name = "XH")
     private Long xh;
-    @Column(name = "CYSFZHM")
+    @Column(length = 18)
     private String cysfzhm;
-    @Column(name = "RYBM")
+    @Column(length = 32)
     private String rybm;
-    @Column(name = "XM")
+    @Column(length = 15)
     private String xm;
-    @Column(name = "XB")
+    @Column(length = 3)
     private String xb;
-    @Column(name = "CSRQ")
     @Temporal(TemporalType.TIMESTAMP)
     private Date csrq;
-    @Column(name = "MZ")
+    @Column(length = 3)
     private String mz;
-    @Column(name = "RYLB")
+    @Column(length = 3)
     private String rylb;
-    @Column(name = "JYZK")
+    @Column(length = 3)
     private String jyzk;
-    @Column(name = "HYZK")
+    @Column(length = 3)
     private String hyzk;
-    @Column(name = "WHCD")
+    @Column(length = 3)
     private String whcd;
-    @Column(name = "ZZMM")
+    @Column(length = 3)
     private String zzmm;
-    @Column(name = "LDNL")
+    @Column(length = 3)
     private String ldnl;
-    @Column(name = "JKZK")
+    @Column(length = 3)
     private String jkzk;
-    @Column(name = "SHSW")
+    @Column(length = 3)
     private String shsw;
-    @Column(name = "JTGX")
+    @Column(length = 3)
     private String jtgx;
-    @Column(name = "HJXZ")
+    @Column(length = 3)
     private String hjxz;
-    @Column(name = "RYZT")
+    @Column(length = 3)
     private String ryzt;
-    @Column(name = "XZQHBM")
+    @Column(length = 12)
     private String xzqhbm;
-    @Column(name = "CZRQ")
+    @Column(length = 10)
     private String czrq;
-    @Column(name = "JBJGID")
+    @Column(length = 32)
     private String jbjgid;
-    @Column(name = "SFBZDX")
+    @Column(length = 3)
     private String sfbzdx;
-    @Column(name = "CJLX")
+    @Column(length = 3)
     private String cjlx;
-    @Column(name = "CJDJ")
+    @Column(length = 3)
     private String cjdj;
-    @Column(name = "TDJZDXLB")
+    @Column(length = 3)
     private String tdjzdxlb;
-    @Column(name = "GYFS")
+    @Column(length = 3)
     private String gyfs;
-    @Column(name = "HJDZ")
+    @Column(length = 60)
     private String hjdz;
-    @Column(name = "SHZLNL")
+    @Column(length = 3)
     private String shzlnl;
-    @Column(name = "GYFWJGID")
+    @Column(length = 32)
     private String gyfwjgid;
-    @Column(name = "XYZK")
+    @Column(length = 3)
     private String xyzk;
-    @Column(name = "ZLLX")
+    @Column(length = 1)
     private String zllx;
-    @Column(name = "CZSJ")
+    @Column(length = 19)
     private String czsj;
-    @Column(name = "DBZH")
+    @Column(length = 20)
     private String dbzh;
+    @Column(name = "O_FID", length = 64)
+    private String oFid;
+    @Column(name = "O_MEMBERID", length = 64)
+    private String oMemberid;
+    @Column(name = "O_IDNO", length = 64)
+    private String oIdno;
+    @Column(name = "O_ID15", length = 64)
+    private String oId15;
+    @Column(name = "O_ID18", length = 64)
+    private String oId18;
+    @Column(name = "O_IDCK", length = 64)
+    private String oIdck;
+    @Column(name = "O_BIRTHDAY", length = 64)
+    private String oBirthday;
+    @Column(name = "O_NATION", length = 128)
+    private String oNation;
 
     public BizJzdxjbxx() {
     }
@@ -414,6 +438,70 @@ public class BizJzdxjbxx implements Serializable {
 
     public void setDbzh(String dbzh) {
         this.dbzh = dbzh;
+    }
+
+    public String getOFid() {
+        return oFid;
+    }
+
+    public void setOFid(String oFid) {
+        this.oFid = oFid;
+    }
+
+    public String getOMemberid() {
+        return oMemberid;
+    }
+
+    public void setOMemberid(String oMemberid) {
+        this.oMemberid = oMemberid;
+    }
+
+    public String getOIdno() {
+        return oIdno;
+    }
+
+    public void setOIdno(String oIdno) {
+        this.oIdno = oIdno;
+    }
+
+    public String getOId15() {
+        return oId15;
+    }
+
+    public void setOId15(String oId15) {
+        this.oId15 = oId15;
+    }
+
+    public String getOId18() {
+        return oId18;
+    }
+
+    public void setOId18(String oId18) {
+        this.oId18 = oId18;
+    }
+
+    public String getOIdck() {
+        return oIdck;
+    }
+
+    public void setOIdck(String oIdck) {
+        this.oIdck = oIdck;
+    }
+
+    public String getOBirthday() {
+        return oBirthday;
+    }
+
+    public void setOBirthday(String oBirthday) {
+        this.oBirthday = oBirthday;
+    }
+
+    public String getONation() {
+        return oNation;
+    }
+
+    public void setONation(String oNation) {
+        this.oNation = oNation;
     }
 
     @Override

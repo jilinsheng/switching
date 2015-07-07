@@ -5,7 +5,6 @@
  */
 package com.md.util;
 
-import com.md.model.BaseXzqhxx;
 import com.md.model.BizFfxx;
 import com.md.model.BizGrffxx;
 import com.md.model.BizJtdyzjbhxx;
@@ -27,14 +26,12 @@ import com.md.model.BizZjbfxx;
 import com.md.model.BizZjjsxx;
 import com.md.model.BizZjlyxx;
 import com.md.model.BizZjysxx;
-import static com.md.util.GenBase.basePath;
-import static com.md.util.GenBase.sdf1;
-import static com.md.util.GenBase.sdf2;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -61,17 +58,18 @@ public class GenBiz {
 
     final static SimpleDateFormat sdf1 = new SimpleDateFormat("yyyyMMdd");
     final static SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-
+    final static SimpleDateFormat sdf3 = new SimpleDateFormat("yyyy-MM-dd");
+    final DecimalFormat df1 = new DecimalFormat("###.00");
     final EntityManagerFactory emf = javax.persistence.Persistence.createEntityManagerFactory("switchPU");
 
     public GenBiz() {
 
     }
-    
+
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
-    
+
     public String getSerialno() {
         String sql = "SELECT LPAD(head.nextval, 5, '0') as h FROM DUAL";
         Query q = this.getEntityManager().createNativeQuery(sql);
@@ -79,88 +77,86 @@ public class GenBiz {
         this.getEntityManager().close();
         return h;
     }
-    
-    public void generateBase(String serialno) {
+
+    public void generateBase(String serialno, String xzqhbm, String zone_code, String org_name) {
         try {
             EntityManager em = this.getEntityManager();
-            Query query = em.createQuery("SELECT b FROM BizJzjtxx b WHERE b.xh = :xh").setParameter("xh", -1);
+            Query query = em.createQuery("SELECT b FROM BizJzjtxx b WHERE b.xzqhbm like :xzqhbm").setParameter("xzqhbm", xzqhbm);
             List<BizJzjtxx> list1 = query.getResultList();
-            
+
             query = em.createQuery("SELECT b FROM BizJzjtccxx b WHERE b.xh = :xh").setParameter("xh", -1);
             List<BizJzjtccxx> list2 = query.getResultList();
-            
+
             query = em.createQuery("SELECT b FROM BizJzjtzfxx b WHERE b.xh = :xh").setParameter("xh", -1);
             List<BizJzjtzfxx> list3 = query.getResultList();
-            
-            query = em.createQuery("SELECT b FROM BizJzdxjbxx b WHERE b.xh = :xh").setParameter("xh", -1);
+
+            query = em.createQuery("SELECT b FROM BizJzdxjbxx b WHERE b.xzqhbm like :xzqhbm").setParameter("xzqhbm", xzqhbm);
             List<BizJzdxjbxx> list4 = query.getResultList();
-            
+
             query = em.createQuery("SELECT b FROM BizJzdxsrxx b WHERE b.xh = :xh").setParameter("xh", -1);
             List<BizJzdxsrxx> list5 = query.getResultList();
-            
+
             query = em.createQuery("SELECT b FROM BizJzbzxx b WHERE b.xh = :xh").setParameter("xh", -1);
             List<BizJzbzxx> list6 = query.getResultList();
-            
+
             query = em.createQuery("SELECT b FROM BizJzdxjyxx b WHERE b.xh = :xh").setParameter("xh", -1);
             List<BizJzdxjyxx> list7 = query.getResultList();
-            
-            query = em.createQuery("SELECT b FROM BizJtjzdyxx b WHERE b.xh = :xh").setParameter("xh", -1);
+
+            query = em.createQuery("SELECT b FROM BizJtjzdyxx b WHERE b.oXzqhbm like :xzqhbm").setParameter("xzqhbm", xzqhbm);
             List<BizJtjzdyxx> list8 = query.getResultList();
-            
-            query = em.createQuery("SELECT b FROM BizRyjzdyxx b WHERE b.xh = :xh").setParameter("xh", -1);
+
+            query = em.createQuery("SELECT b FROM BizRyjzdyxx b WHERE b.oXzqhbm like :xzqhbm").setParameter("xzqhbm", xzqhbm);
             List<BizRyjzdyxx> list9 = query.getResultList();
-            
-            query = em.createQuery("SELECT b FROM BizJtdyzjbhxx b WHERE b.xh = :xh").setParameter("xh", -1);
+
+            query = em.createQuery("SELECT b FROM BizJtdyzjbhxx b WHERE 1<>1");
             List<BizJtdyzjbhxx> list10 = query.getResultList();
-            
+
             query = em.createQuery("SELECT b FROM BizRydyzjbhxx b WHERE b.xh = :xh").setParameter("xh", -1);
             List<BizRydyzjbhxx> list11 = query.getResultList();
-            
-            query = em.createQuery("SELECT b FROM BizFfxx b WHERE b.xh = :xh").setParameter("xh", -1);
+
+            query = em.createQuery("SELECT b FROM BizFfxx b WHERE b.xzqhbm like :xzqhbm").setParameter("xzqhbm", xzqhbm);
             List<BizFfxx> list12 = query.getResultList();
-            
-            query = em.createQuery("SELECT b FROM BizJtffxx b WHERE b.xh = :xh").setParameter("xh", -1);
+
+            query = em.createQuery("SELECT b FROM BizJtffxx b WHERE b.oXzqhbm  like :xzqhbm").setParameter("xzqhbm", xzqhbm);
             List<BizJtffxx> list13 = query.getResultList();
-            
-            query = em.createQuery("SELECT b FROM BizGrffxx b WHERE b.xh = :xh").setParameter("xh", -1);
+
+            query = em.createQuery("SELECT b FROM BizGrffxx b WHERE b.oXzqhbm like :xzqhbm").setParameter("xzqhbm", xzqhbm);
             List<BizGrffxx> list14 = query.getResultList();
-            
-            query = em.createQuery("SELECT b FROM BizZjjsxx b WHERE b.xh = :xh").setParameter("xh", -1);
+
+            query = em.createQuery("SELECT b FROM BizZjjsxx b WHERE b.xzqhbm like :xzqhbm").setParameter("xzqhbm", xzqhbm);
             List<BizZjjsxx> list15 = query.getResultList();
-            
+
             query = em.createQuery("SELECT b FROM BizJzbzxx b WHERE b.xh = :xh").setParameter("xh", -1);
             List<BizJzbzxx> list16 = query.getResultList();
-            
+
             query = em.createQuery("SELECT b FROM BizZjysxx b WHERE b.xh = :xh").setParameter("xh", -1);
             List<BizZjysxx> list17 = query.getResultList();
-            
+
             query = em.createQuery("SELECT b FROM BizZjlyxx b WHERE b.xh = :xh").setParameter("xh", -1);
             List<BizZjlyxx> list18 = query.getResultList();
-            
+
             query = em.createQuery("SELECT b FROM BizZjbfxx b WHERE b.xh = :xh").setParameter("xh", -1);
             List<BizZjbfxx> list19 = query.getResultList();
-            
+
             query = em.createQuery("SELECT b FROM BizRktjxx b WHERE b.xh = :xh").setParameter("xh", -1);
             List<BizRktjxx> list20 = query.getResultList();
-            
+
             query = em.createQuery("SELECT b FROM BizYljztjxx b WHERE b.xh = :xh").setParameter("xh", -1);
             List<BizYljztjxx> list21 = query.getResultList();
-             
+
             document = DocumentHelper.createDocument();
             document.setXMLEncoding("GBK");
-            
+
             String xmlns_tns = "http://www.mca.gov.cn/head.xsd/";
             String user_num = "jilin";
-            String zone_code = "220000000000";
-            String org_name = "吉林省";
+
             String create_time = sdf2.format(new Date());
             String version_number = serialno;
             String fetch_type = "full";
             String mobile = "18643200627";
             String email = "geogle_jia@126.com";
             String name = "王佳";
-            String xzqhbm = "22";
-            String _dir = xzqhbm + "_" + sdf1.format(new Date()) + "_" + serialno;
+            String _dir = zone_code + "_" + sdf1.format(new Date()) + "_" + serialno;
             this.fileName = "head_" + _dir + ".xml";
             Element root = document.addElement("tns:file-head");
             root.addAttribute("xmlns:tns", xmlns_tns);
@@ -284,7 +280,7 @@ public class GenBiz {
             String file_name21 = "yljztjxx.xml";
             file21.addAttribute("file-name", file_name21);
             file21.addAttribute("record-num", record_num21);
-            
+
             OutputFormat of = new OutputFormat();
             of.setEncoding("GBK");
             XMLWriter xmlWriter = new XMLWriter(new FileOutputStream(basePath + fileName),
@@ -296,7 +292,7 @@ public class GenBiz {
             if (!dir.exists()) {
                 dir.mkdirs();
             }
-            
+
             this.createJzjtxx(list1, dir.getAbsolutePath());
             this.createJzjtccxx(list2, dir.getAbsolutePath());
             this.createJzjtzfxx(list3, dir.getAbsolutePath());
@@ -318,11 +314,17 @@ public class GenBiz {
             this.createRktjxx(list20, dir.getAbsolutePath());
             this.createYljztjxx(list21, dir.getAbsolutePath());
 
+            //  ZipCompressorByAnt z = new ZipCompressorByAnt(basePath + _dir + ".zip");
+            //z.compress(basePath + _dir);
+            //  ZipCompressor z1=new ZipCompressor(basePath + _dir + ".zip");
+            // z1.compress(basePath + _dir);
+            ZipUtil.zip(basePath + _dir + ".zip", "", basePath + _dir);
+
         } catch (IOException ex) {
             Logger.getLogger(GenBase.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     //救助家庭信息
     public void createJzjtxx(List<BizJzjtxx> rs, String dir) {
         try {
@@ -362,32 +364,33 @@ public class GenBiz {
             String xmlns_tns = "http://www.mca.gov.cn/jzjtxx.xsd/";
             Element root = document.addElement("tns:Data");
             root.addAttribute("xmlns:tns", xmlns_tns);
-
-            rs.stream().forEach((s) -> {
+            root.setText("");
+            for (int i = 0; i < rs.size(); i++) {
+                BizJzjtxx s = rs.get(i);
                 Element record = root.addElement("Record");
-                record.addElement("XH").setText(s.getXh() + "");
-                record.addElement("JTLSID").setText(s.getJtlsid());
-                record.addElement("HZSFZHM").setText(s.getHzsfzhm());
-                record.addElement("JTBM").setText(s.getJtbm());
-                record.addElement("JTLB").setText(s.getJtlb());
-                record.addElement("ZYZPYY").setText(s.getZyzpyy());
+                record.addElement("XH").setText((1 + i) + "");
+                record.addElement("JTLSID").setText(s.getJtlsid() + "");
+                record.addElement("HZSFZHM").setText(s.getHzsfzhm() + "");
+                record.addElement("JTBM").setText(s.getJtbm() + "");
+                record.addElement("JTLB").setText(s.getJtlb() + "");
+                record.addElement("ZYZPYY").setText(s.getZyzpyy() + "");
                 record.addElement("JTRK").setText(s.getJtrk() + "");
                 record.addElement("BZRK").setText(s.getBzrk() + "");
                 record.addElement("ZSR").setText(s.getZsr() + "");
-                record.addElement("XZQHBM").setText(s.getXzqhbm());
-                record.addElement("CZRQ").setText(s.getCzrq());
-                record.addElement("JBJGID").setText(s.getJbjgid());
-                record.addElement("SPRQ").setText(s.getSprq());
-                record.addElement("JZYWLX").setText(s.getJzywlx());
-                record.addElement("JZZH").setText(s.getJzzh());
-                record.addElement("ZJKM").setText(s.getZjkm());
-                record.addElement("KHYH").setText(s.getKhyh());
-                record.addElement("KHMC").setText(s.getKhmc());
-                record.addElement("YHZH").setText(s.getYhzh());
-                record.addElement("JZDZ").setText(s.getJzdz());
-                record.addElement("ZLLX").setText(s.getZllx());
-                record.addElement("CZSJ").setText(s.getCzsj());
-            });
+                record.addElement("XZQHBM").setText(s.getXzqhbm() + "");
+                record.addElement("CZRQ").setText(s.getCzrq() + "");
+                record.addElement("JBJGID").setText(s.getJbjgid() + "");
+                record.addElement("SPRQ").setText(s.getSprq() + "");
+                record.addElement("JZYWLX").setText(s.getJzywlx() + "");
+                record.addElement("JZZH").setText(s.getJzzh() + "");
+                record.addElement("ZJKM").setText(null == s.getZjkm() || s.getZjkm().equals("null") ? "" : s.getZjkm());
+                record.addElement("KHYH").setText(null == s.getKhyh() || s.getKhyh().equals("null") ? "" : s.getKhyh());
+                record.addElement("KHMC").setText(null == s.getKhmc() || s.getKhmc().equals("null") ? "" : s.getKhmc());
+                record.addElement("YHZH").setText(null == s.getYhzh() || s.getYhzh().equals("null") ? "" : s.getYhzh());
+                record.addElement("JZDZ").setText(null == s.getJzdz() || s.getJzdz().equals("null") ? "" : s.getJzdz());
+                record.addElement("ZLLX").setText(s.getZllx() + "");
+                record.addElement("CZSJ").setText(s.getCzsj() + "");
+            }
             OutputFormat of = new OutputFormat();
             of.setEncoding("GBK");
             XMLWriter xmlWriter = new XMLWriter(new FileOutputStream(dir + "//jzjtxx.xml"),
@@ -427,7 +430,7 @@ public class GenBiz {
             String xmlns_tns = "http://www.mca.gov.cn/jzjtccxx.xsd/";
             Element root = document.addElement("tns:Data");
             root.addAttribute("xmlns:tns", xmlns_tns);
-
+            root.setText("");
             rs.stream().forEach((s) -> {
                 Element record = root.addElement("Record");
                 record.addElement("XH").setText(s.getXh() + "");
@@ -480,7 +483,7 @@ public class GenBiz {
             String xmlns_tns = "http://www.mca.gov.cn/jzjtzfxx.xsd/";
             Element root = document.addElement("tns:Data");
             root.addAttribute("xmlns:tns", xmlns_tns);
-
+            root.setText("");
             rs.stream().forEach((s) -> {
                 Element record = root.addElement("Record");
                 record.addElement("XH").setText(s.getXh() + "");
@@ -559,17 +562,18 @@ public class GenBiz {
             String xmlns_tns = "http://www.mca.gov.cn/jzdxjbxx.xsd/";
             Element root = document.addElement("tns:Data");
             root.addAttribute("xmlns:tns", xmlns_tns);
-
-            rs.stream().forEach((s) -> {
+            root.setText("");
+            for (int i = 0; i < rs.size(); i++) {
+                BizJzdxjbxx s = rs.get(i);
                 Element record = root.addElement("Record");
-                record.addElement("XH").setText(s.getXh() + "");
+                record.addElement("XH").setText((i + 1) + "");
                 record.addElement("JTLSID").setText(s.getBizJzdxjbxxPK().getJtlsid());
                 record.addElement("RYLSID").setText(s.getBizJzdxjbxxPK().getRylsid());
                 record.addElement("CYSFZHM").setText(s.getCysfzhm());
                 record.addElement("RYBM").setText(s.getRybm());
                 record.addElement("XM").setText(s.getXm());
                 record.addElement("XB").setText(s.getXb());
-                record.addElement("CSRQ").setText(s.getCsrq() + "");
+                record.addElement("CSRQ").setText(sdf3.format(s.getCsrq()) + "");
                 record.addElement("MZ").setText(s.getMz());
                 record.addElement("RYLB").setText(s.getRylb());
                 record.addElement("JYZK").setText(s.getJyzk());
@@ -581,23 +585,24 @@ public class GenBiz {
                 record.addElement("SHSW").setText(s.getShsw());
                 record.addElement("JTGX").setText(s.getJtgx());
                 record.addElement("DBZH").setText(s.getDbzh());
-                record.addElement("HJXZ").setText(s.getHjdz());
+                record.addElement("HJXZ").setText(s.getHjxz());
                 record.addElement("RYZT").setText(s.getRyzt());
                 record.addElement("XZQHBM").setText(s.getXzqhbm());
                 record.addElement("CZRQ").setText(s.getCzrq());
                 record.addElement("JBJGID").setText(s.getJbjgid());
                 record.addElement("SFBZDX").setText(s.getSfbzdx());
-                record.addElement("CJLX").setText(s.getCjlx());
-                record.addElement("CJDJ").setText(s.getCjdj());
-                record.addElement("TDJZDXLB").setText(s.getTdjzdxlb());
-                record.addElement("GYFS").setText(s.getGyfs());
-                record.addElement("HJDZ").setText(s.getHjdz());
-                record.addElement("SHZLNL").setText(s.getShzlnl());
-                record.addElement("GYFWJGID").setText(s.getGyfwjgid());
-                record.addElement("XYZK").setText(s.getXyzk());
-                record.addElement("ZLLX").setText(s.getZllx());
+                record.addElement("CJLX").setText(null == s.getCjlx() || s.getCjlx().equals("null") ? "" : s.getCjlx());
+                record.addElement("CJDJ").setText(null == s.getCjdj() || s.getCjdj().equals("null") ? "" : s.getCjdj());
+                record.addElement("TDJZDXLB").setText(null == s.getTdjzdxlb() || s.getTdjzdxlb().equals("null") ? "" : s.getTdjzdxlb());
+                record.addElement("GYFS").setText(null == s.getGyfs() || s.getGyfs().equals("null") ? "" : s.getGyfs());
+                record.addElement("HJDZ").setText(null == s.getHjdz() || s.getHjdz().equals("null") ? "" : s.getHjdz());
+                record.addElement("SHZLNL").setText(null == s.getShzlnl() || s.getShzlnl().equals("null") ? "" : s.getShzlnl());
+                record.addElement("GYFWJGID").setText(null == s.getGyfwjgid() || s.getGyfwjgid().equals("null") ? "" : s.getGyfwjgid());
+                record.addElement("XYZK").setText(null == s.getXyzk() || s.getXyzk().equals("null") ? "" : s.getXyzk());
+                record.addElement("ZLLX").setText(null == s.getZllx() || s.getZllx().equals("null") ? "" : s.getZllx());
                 record.addElement("CZSJ").setText(s.getCzsj());
-            });
+                i++;
+            }
             OutputFormat of = new OutputFormat();
             of.setEncoding("GBK");
             XMLWriter xmlWriter = new XMLWriter(new FileOutputStream(dir + "//jzdxjbxx.xml"),
@@ -642,7 +647,7 @@ public class GenBiz {
             String xmlns_tns = "http://www.mca.gov.cn/jzdxsrxx.xsd/";
             Element root = document.addElement("tns:Data");
             root.addAttribute("xmlns:tns", xmlns_tns);
-
+            root.setText("");
             rs.stream().forEach((s) -> {
                 Element record = root.addElement("Record");
                 record.addElement("XH").setText(s.getXh() + "");
@@ -650,10 +655,10 @@ public class GenBiz {
                 record.addElement("RYLSID").setText(s.getRylsid());
                 record.addElement("CYSFZHM").setText(s.getCysfzhm());
                 record.addElement("SRLX").setText(s.getSrlx());
-                record.addElement("YSRJE").setText(s.getYsrje().toString());
-                record.addElement("NSRJE").setText(s.getNsrje().toString());
-                record.addElement("YJRJE").setText(s.getYjrje().toString());
-                record.addElement("NJRJE").setText(s.getNjrje().toString());
+                record.addElement("YSRJE").setText(df1.format(s.getYsrje()));
+                record.addElement("NSRJE").setText(df1.format(s.getNsrje()));
+                record.addElement("YJRJE").setText(df1.format(s.getYjrje()));
+                record.addElement("NJRJE").setText(df1.format(s.getNjrje()));
                 record.addElement("SRJSFS").setText(s.getSrjsfs());
                 record.addElement("ZLLX").setText(s.getZllx());
                 record.addElement("CZSJ").setText(s.getCzsj());
@@ -700,7 +705,7 @@ public class GenBiz {
             String xmlns_tns = "http://www.mca.gov.cn/jzdxgzdwxx.xsd/";
             Element root = document.addElement("tns:Data");
             root.addAttribute("xmlns:tns", xmlns_tns);
-
+            root.setText("");
             rs.stream().forEach((s) -> {
                 Element record = root.addElement("Record");
                 record.addElement("XH").setText(s.getXh() + "");
@@ -756,7 +761,7 @@ public class GenBiz {
             String xmlns_tns = "http://www.mca.gov.cn/jzdxjyxx.xsd/";
             Element root = document.addElement("tns:Data");
             root.addAttribute("xmlns:tns", xmlns_tns);
-
+            root.setText("");
             rs.stream().forEach((s) -> {
                 Element record = root.addElement("Record");
                 record.addElement("XH").setText(s.getXh() + "");
@@ -813,21 +818,23 @@ public class GenBiz {
             String xmlns_tns = "http://www.mca.gov.cn/jtjzdyxx.xsd/";
             Element root = document.addElement("tns:Data");
             root.addAttribute("xmlns:tns", xmlns_tns);
-
-            rs.stream().forEach((s) -> {
+            root.setText("");
+            for (int i = 0; i < rs.size(); i++) {
+                BizJtjzdyxx s = rs.get(i);
                 Element record = root.addElement("Record");
-                record.addElement("XH").setText(s.getXh() + "");
+                record.addElement("XH").setText((i + 1) + "");
                 record.addElement("JTLSID").setText(s.getJtlsid());
                 record.addElement("KSNY").setText(s.getKsny());
                 record.addElement("JSNY").setText(s.getJsny());
-                record.addElement("JZSW").setText(s.getJzsw());
-                record.addElement("SL").setText(s.getSl() + "");
-                record.addElement("DW").setText(s.getDw());
-                record.addElement("JZJE").setText(s.getJzje() + "");
+                record.addElement("JZSW").setText(null == s.getJzsw() || s.getJzsw().equals("null") ? "" : s.getJzsw());
+                record.addElement("SL").setText(null == (s.getSl() + "") || (s.getSl() + "").equals("null") ? "" : (s.getSl() + ""));
+                record.addElement("DW").setText(null == s.getDw() || s.getDw().equals("null") ? "" : s.getDw());
+                record.addElement("JZJE").setText(df1.format(s.getJzje()));
                 record.addElement("JZYWLX").setText(s.getJzywlx());
                 record.addElement("ZLLX").setText(s.getZllx());
                 record.addElement("CZSJ").setText(s.getCzsj());
-            });
+            }
+
             OutputFormat of = new OutputFormat();
             of.setEncoding("GBK");
             XMLWriter xmlWriter = new XMLWriter(new FileOutputStream(dir + "//jtjzdyxx.xml"),
@@ -874,24 +881,25 @@ public class GenBiz {
             String xmlns_tns = "http://www.mca.gov.cn/ryjzdyxx.xsd/";
             Element root = document.addElement("tns:Data");
             root.addAttribute("xmlns:tns", xmlns_tns);
-
-            rs.stream().forEach((s) -> {
+            root.setText("");
+            for (int i = 0; i < rs.size(); i++) {
+                BizRyjzdyxx s = rs.get(i);
                 Element record = root.addElement("Record");
-                record.addElement("XH").setText(s.getXh() + "");
-                record.addElement("RYLSID").setText(s.getRylsid());
+                record.addElement("XH").setText((i + 1) + "");
+                record.addElement("RYLSID").setText(s.getBizRyjzdyxxPK().getRylsid());
                 record.addElement("CYSFZHM").setText(s.getCysfzhm());
                 record.addElement("KSNY").setText(s.getKsny());
                 record.addElement("JSNY").setText(s.getJsny());
-                record.addElement("JZSW").setText(s.getJzsw());
-                record.addElement("SL").setText(s.getSl() + "");
-                record.addElement("DW").setText(s.getDw());
-                record.addElement("JZJE").setText(s.getJzje() + "");
+                record.addElement("JZSW").setText(null == s.getJzsw() || s.getJzsw().equals("null") ? "" : s.getJzsw());
+                record.addElement("SL").setText(null == (s.getSl() + "") || (s.getSl() + "").equals("null") ? "" : (s.getSl() + ""));
+                record.addElement("DW").setText(null == s.getDw() || s.getDw().equals("null") ? "" : s.getDw());
+                record.addElement("JZJE").setText(df1.format(s.getJzje()));
                 record.addElement("DYSS").setText(s.getDyss());
                 record.addElement("JZYWLX").setText(s.getJzywlx());
                 record.addElement("JZXMBM").setText(s.getJzxmbm());
                 record.addElement("ZLLX").setText(s.getZllx());
                 record.addElement("CZSJ").setText(s.getCzsj());
-            });
+            }
             OutputFormat of = new OutputFormat();
             of.setEncoding("GBK");
             XMLWriter xmlWriter = new XMLWriter(new FileOutputStream(dir + "//ryjzdyxx.xml"),
@@ -932,13 +940,13 @@ public class GenBiz {
             String xmlns_tns = "http://www.mca.gov.cn/jtdyzjbhxx.xsd/";
             Element root = document.addElement("tns:Data");
             root.addAttribute("xmlns:tns", xmlns_tns);
-
+            root.setText("");
             rs.stream().forEach((s) -> {
                 Element record = root.addElement("Record");
-                record.addElement("XH").setText(s.getXh() + "");
-                record.addElement("JTLSID").setText(s.getJtlsid());
+                record.addElement("XH").setText("");
+                record.addElement("JTLSID").setText(s.getBizJtdyzjbhxxPK().getJtlsid());
                 record.addElement("BHLX").setText(s.getBhlx());
-                record.addElement("ZJBHJE").setText(s.getZjbhje() + "");
+                record.addElement("ZJBHJE").setText(df1.format(s.getZjbhje()));
                 record.addElement("BHRQ").setText(s.getBhrq());
                 record.addElement("SXNY").setText(s.getSxny());
                 record.addElement("ZLLX").setText(s.getZllx());
@@ -985,14 +993,14 @@ public class GenBiz {
             String xmlns_tns = "http://www.mca.gov.cn/rydyzjbhxx.xsd/";
             Element root = document.addElement("tns:Data");
             root.addAttribute("xmlns:tns", xmlns_tns);
-
+            root.setText("");
             rs.stream().forEach((s) -> {
                 Element record = root.addElement("Record");
                 record.addElement("XH").setText(s.getXh() + "");
                 record.addElement("RYLSID").setText(s.getRylsid());
                 record.addElement("CYSFZHM").setText(s.getCysfzhm());
                 record.addElement("BHLX").setText(s.getBhlx());
-                record.addElement("ZJBHJE").setText(s.getZjbhje() + "");
+                record.addElement("ZJBHJE").setText(df1.format(s.getZjbhje()));
                 record.addElement("BHRQ").setText(s.getBhrq());
                 record.addElement("SXNY").setText(s.getSxny());
                 record.addElement("ZLLX").setText(s.getZllx());
@@ -1048,28 +1056,31 @@ public class GenBiz {
             String xmlns_tns = "http://www.mca.gov.cn/ffxx.xsd/";
             Element root = document.addElement("tns:Data");
             root.addAttribute("xmlns:tns", xmlns_tns);
-
-            rs.stream().forEach((s) -> {
+            root.setText("");
+            root.setText("");
+            for (int i = 0; i < rs.size(); i++) {
+                BizFfxx s = rs.get(i);
                 Element record = root.addElement("Record");
-                record.addElement("XH").setText(s.getXh() + "");
+                record.addElement("XH").setText((i + 1) + "");
                 record.addElement("FFXXID").setText(s.getFfxxid());
-                record.addElement("ZJZHID").setText(s.getZjzhid());
+                record.addElement("ZJZHID").setText(null == s.getZjzhid() || s.getZjzhid().equals("null") ? "null" : s.getZjzhid());
                 record.addElement("FFNY").setText(s.getFfny());
-                record.addElement("FFJE").setText(s.getFfje() + "");
+                record.addElement("FFJE").setText(df1.format(s.getFfje()));
                 record.addElement("FFRS").setText(s.getFfrs() + "");
                 record.addElement("FFLX").setText(s.getFflx());
-                record.addElement("JBR").setText(s.getJbr());
-                record.addElement("SPR").setText(s.getSpr());
+                record.addElement("JBR").setText(null == s.getJbr() || s.getJbr().equals("null") ? "" : s.getJbr());
+                record.addElement("SPR").setText(null == s.getSpr() || s.getSpr().equals("null") ? "" : s.getSpr());
                 record.addElement("FFZT").setText(s.getFfzt() + "");
                 record.addElement("FFFS").setText(s.getFffs());
                 record.addElement("JZYWBM").setText(s.getJzywbm());
-                record.addElement("BZ").setText(s.getBz());
-                record.addElement("CZY").setText(s.getCzy());
-                record.addElement("JBJG").setText(s.getJbjg());
+                record.addElement("BZ").setText(null == s.getBz() || s.getBz().equals("null") ? "" : s.getBz());
+                record.addElement("CZY").setText(null == s.getCzy() || s.getCzy().equals("null") ? "" : s.getCzy());
+                record.addElement("JBJG").setText(null == s.getJbjg() || s.getJbjg().equals("null") ? "" : s.getJbjg());
                 record.addElement("XZQHBM").setText(s.getXzqhbm());
                 record.addElement("ZLLX").setText(s.getZllx());
                 record.addElement("CZSJ").setText(s.getCzsj());
-            });
+            }
+
             OutputFormat of = new OutputFormat();
             of.setEncoding("GBK");
             XMLWriter xmlWriter = new XMLWriter(new FileOutputStream(dir + "//ffxx.xml"),
@@ -1113,21 +1124,22 @@ public class GenBiz {
             String xmlns_tns = "http://www.mca.gov.cn/jtffxx.xsd/";
             Element root = document.addElement("tns:Data");
             root.addAttribute("xmlns:tns", xmlns_tns);
-
-            rs.stream().forEach((s) -> {
+            root.setText("");
+            for (int i = 0; i < rs.size(); i++) {
+                BizJtffxx s = rs.get(i);
                 Element record = root.addElement("Record");
-                record.addElement("XH").setText(s.getXh() + "");
-                record.addElement("JTFFXXID").setText(s.getJtffxxid());
+                record.addElement("XH").setText((i + 1) + "");
+                record.addElement("JTFFXXID").setText(null == s.getJtffxxid() || s.getJtffxxid().equals("null") ? "" : s.getJtffxxid());
                 record.addElement("FFXXID").setText(s.getFfxxid());
-                record.addElement("ZJJSXXID").setText(s.getZjjsxxid());
-                record.addElement("FFJE").setText(s.getFfje() + "");
+                record.addElement("ZJJSXXID").setText(null == s.getZjjsxxid() || s.getZjjsxxid().equals("null") ? "" : s.getZjjsxxid());
+                record.addElement("FFJE").setText(df1.format(s.getFfje()));
                 record.addElement("JTBM").setText(s.getJtbm());
                 record.addElement("HZID").setText(s.getHzid());
-                record.addElement("FFYHZHID").setText(s.getFfyhzhid());
+                record.addElement("FFYHZHID").setText(null == s.getFfyhzhid() || "".equals(s.getFfyhzhid()) ? "" : s.getFfyhzhid());
                 record.addElement("FFRS").setText(s.getFfrs() + "");
                 record.addElement("ZLLX").setText(s.getZllx());
                 record.addElement("CZSJ").setText(s.getCzsj());
-            });
+            }
             OutputFormat of = new OutputFormat();
             of.setEncoding("GBK");
             XMLWriter xmlWriter = new XMLWriter(new FileOutputStream(dir + "//jtffxx.xml"),
@@ -1169,19 +1181,20 @@ public class GenBiz {
             String xmlns_tns = "http://www.mca.gov.cn/grffxx.xsd/";
             Element root = document.addElement("tns:Data");
             root.addAttribute("xmlns:tns", xmlns_tns);
-
-            rs.stream().forEach((s) -> {
+            root.setText("");
+            for (int i = 0; i < rs.size(); i++) {
+                BizGrffxx s = rs.get(i);
                 Element record = root.addElement("Record");
-                record.addElement("XH").setText(s.getXh() + "");
+                record.addElement("XH").setText((i + 1) + "");
                 record.addElement("GRFFXXID").setText(s.getGrffxxid());
                 record.addElement("FFXXID").setText(s.getFfxxid());
                 record.addElement("JTFFXXID").setText(s.getJtffxxid());
                 record.addElement("ZJJSXXID").setText(s.getZjjsxxid() + "");
-                record.addElement("FFJE").setText(s.getFfje() + "");
+                record.addElement("FFJE").setText(df1.format(s.getFfje()));
                 record.addElement("RYBM").setText(s.getRybm());
                 record.addElement("ZLLX").setText(s.getZllx());
                 record.addElement("CZSJ").setText(s.getCzsj());
-            });
+            }
             OutputFormat of = new OutputFormat();
             of.setEncoding("GBK");
             XMLWriter xmlWriter = new XMLWriter(new FileOutputStream(dir + "//grffxx.xml"),
@@ -1226,22 +1239,24 @@ public class GenBiz {
             String xmlns_tns = "http://www.mca.gov.cn/zjjsxx.xsd/";
             Element root = document.addElement("tns:Data");
             root.addAttribute("xmlns:tns", xmlns_tns);
-
-            rs.stream().forEach((s) -> {
+            root.setText("");
+            for (int i = 0; i < rs.size(); i++) {
+                BizZjjsxx s = rs.get(i);
                 Element record = root.addElement("Record");
-                record.addElement("XH").setText(s.getXh() + "");
+                record.addElement("XH").setText((i + 1) + "");
                 record.addElement("ZJJSXXID").setText(s.getZjjsxxid());
                 record.addElement("JSKSNY").setText(s.getJsksny());
                 record.addElement("JSRQ").setText(s.getJsrq());
-                record.addElement("JSJE").setText(s.getJsje() + "");
+                record.addElement("JSJE").setText(df1.format(s.getJsje()));
                 record.addElement("JSBM").setText(s.getJsbm() + "");
                 record.addElement("JSJSNY").setText(s.getJsjsny());
                 record.addElement("JZYWBM").setText(s.getJzywbm());
-                record.addElement("JBJG").setText(s.getJbjg());
+                record.addElement("JBJG").setText(null == s.getJbjg() || s.getJbjg().equals("null") ? "" : s.getJbjg());
                 record.addElement("XZQHBM").setText(s.getXzqhbm());
                 record.addElement("ZLLX").setText(s.getZllx());
                 record.addElement("CZSJ").setText(s.getCzsj());
-            });
+            }
+
             OutputFormat of = new OutputFormat();
             of.setEncoding("GBK");
             XMLWriter xmlWriter = new XMLWriter(new FileOutputStream(dir + "//zjjsxx.xml"),
@@ -1284,7 +1299,7 @@ public class GenBiz {
             String xmlns_tns = "http://www.mca.gov.cn/jzbzxx.xsd/";
             Element root = document.addElement("tns:Data");
             root.addAttribute("xmlns:tns", xmlns_tns);
-
+            root.setText("");
             rs.stream().forEach((s) -> {
                 Element record = root.addElement("Record");
                 record.addElement("XH").setText(s.getXh() + "");
@@ -1338,14 +1353,14 @@ public class GenBiz {
             String xmlns_tns = "http://www.mca.gov.cn/zjysxx.xsd/";
             Element root = document.addElement("tns:Data");
             root.addAttribute("xmlns:tns", xmlns_tns);
-
+            root.setText("");
             rs.stream().forEach((s) -> {
                 Element record = root.addElement("Record");
                 record.addElement("XH").setText(s.getXh() + "");
                 record.addElement("ZJKM").setText(s.getZjkm());
-                record.addElement("BJYSJE").setText(s.getBjysje().toString());
+                record.addElement("BJYSJE").setText(df1.format(s.getBjysje()));
                 record.addElement("ZJYSND").setText(s.getZjysnd());
-                record.addElement("SJYSJE").setText(s.getSjysje().toString());
+                record.addElement("SJYSJE").setText(df1.format(s.getSjysje()));
                 record.addElement("JGID").setText(s.getJgid());
                 record.addElement("ZLLX").setText(s.getZllx());
                 record.addElement("CZSJ").setText(s.getCzsj());
@@ -1390,13 +1405,13 @@ public class GenBiz {
             String xmlns_tns = "http://www.mca.gov.cn/zjlyxx.xsd/";
             Element root = document.addElement("tns:Data");
             root.addAttribute("xmlns:tns", xmlns_tns);
-
+            root.setText("");
             rs.stream().forEach((s) -> {
                 Element record = root.addElement("Record");
                 record.addElement("XH").setText(s.getXh() + "");
                 record.addElement("ZJKM").setText(s.getZjkm());
                 record.addElement("ZJLY").setText(s.getZjly());
-                record.addElement("JE").setText(s.getJe().toString());
+                record.addElement("JE").setText(df1.format(s.getJe()));
                 record.addElement("ZJDZRQ").setText(s.getZjdzrq());
                 record.addElement("JGID").setText(s.getJgid());
                 record.addElement("ZLLX").setText(s.getZllx());
@@ -1444,14 +1459,14 @@ public class GenBiz {
             String xmlns_tns = "http://www.mca.gov.cn/zjbfxx.xsd/";
             Element root = document.addElement("tns:Data");
             root.addAttribute("xmlns:tns", xmlns_tns);
-
+            root.setText("");
             rs.stream().forEach((s) -> {
                 Element record = root.addElement("Record");
                 record.addElement("XH").setText(s.getXh() + "");
                 record.addElement("ZJKM").setText(s.getZjkm());
                 record.addElement("BFRQ").setText(s.getBfrq());
                 record.addElement("JSJG").setText(s.getJsjg());
-                record.addElement("BFJE").setText(s.getBfje().toString());
+                record.addElement("BFJE").setText(df1.format(s.getBfje()));
                 record.addElement("BFWJMC").setText(s.getBfwjmc());
                 record.addElement("BFWJH").setText(s.getBfwjh());
                 record.addElement("JGID").setText(s.getJgid());
@@ -1497,7 +1512,7 @@ public class GenBiz {
             String xmlns_tns = "http://www.mca.gov.cn/rktjxx.xsd/";
             Element root = document.addElement("tns:Data");
             root.addAttribute("xmlns:tns", xmlns_tns);
-
+            root.setText("");
             rs.stream().forEach((s) -> {
                 Element record = root.addElement("Record");
                 record.addElement("XH").setText(s.getXh() + "");
@@ -1552,13 +1567,13 @@ public class GenBiz {
             String xmlns_tns = "http://www.mca.gov.cn/yljztjxx.xsd/";
             Element root = document.addElement("tns:Data");
             root.addAttribute("xmlns:tns", xmlns_tns);
-
+            root.setText("");
             rs.stream().forEach((s) -> {
                 Element record = root.addElement("Record");
                 record.addElement("XH").setText(s.getXh() + "");
                 record.addElement("QXXZQHBM").setText(s.getQxxzqhbm());
-                record.addElement("YNRCSYLDBRS").setText(s.getYnrcsyldbrs()+"");
-                record.addElement("YNRNCYLDBRS").setText(s.getYnrncyldbrs()+ "");
+                record.addElement("YNRCSYLDBRS").setText(s.getYnrcsyldbrs() + "");
+                record.addElement("YNRNCYLDBRS").setText(s.getYnrncyldbrs() + "");
                 record.addElement("MZJZNFDX").setText(s.getMzjznfdx().toString());
                 record.addElement("ZYJZNFDX").setText(s.getZyjznfdx().toString());
                 record.addElement("PJJZBL").setText(s.getPjjzbl().toString());
@@ -1583,5 +1598,21 @@ public class GenBiz {
             Logger.getLogger(GenBase.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
+    @SuppressWarnings("Convert2Diamond")
+    public List<Object[]> createAll() {
+        String sql = "select substr(t.xzqhbm, 1, 6) as a, t.xzqhmc as b   from base_xzqhxx t  where  t.xzqhbm like '22%' and  t.xzjb = '4'    and instr(t.xzqhmc, '本级') = 0 order by  substr(t.xzqhbm, 1, 6)";
+        Query q = this.getEntityManager().createNativeQuery(sql);
+        List<Object[]> list = q.getResultList();
+        this.getEntityManager().close();
+        return list;
+    }
+
+    public static void main(String args[]) {
+        GenBiz gb = new GenBiz();
+        List<Object[]> list = gb.createAll();
+        list.stream().forEach((s) -> {
+            gb.generateBase(gb.getSerialno(), s[0].toString() + "%", s[0].toString(), s[1].toString());
+        });
+    }
 }

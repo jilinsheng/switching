@@ -21,7 +21,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Administrator
  */
 @Entity
-@Table(name = "BIZ_JZJTXX")
+@Table(name = "BIZ_JZJTXX", catalog = "", schema = "SWITCHING")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "BizJzjtxx.findAll", query = "SELECT b FROM BizJzjtxx b"),
@@ -46,56 +46,80 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "BizJzjtxx.findByYhzh", query = "SELECT b FROM BizJzjtxx b WHERE b.yhzh = :yhzh"),
     @NamedQuery(name = "BizJzjtxx.findByJzdz", query = "SELECT b FROM BizJzjtxx b WHERE b.jzdz = :jzdz"),
     @NamedQuery(name = "BizJzjtxx.findByZllx", query = "SELECT b FROM BizJzjtxx b WHERE b.zllx = :zllx"),
-    @NamedQuery(name = "BizJzjtxx.findByCzsj", query = "SELECT b FROM BizJzjtxx b WHERE b.czsj = :czsj")})
+    @NamedQuery(name = "BizJzjtxx.findByCzsj", query = "SELECT b FROM BizJzjtxx b WHERE b.czsj = :czsj"),
+    @NamedQuery(name = "BizJzjtxx.findByOFid", query = "SELECT b FROM BizJzjtxx b WHERE b.oFid = :oFid"),
+    @NamedQuery(name = "BizJzjtxx.findByOFno", query = "SELECT b FROM BizJzjtxx b WHERE b.oFno = :oFno"),
+    @NamedQuery(name = "BizJzjtxx.findByOId18", query = "SELECT b FROM BizJzjtxx b WHERE b.oId18 = :oId18"),
+    @NamedQuery(name = "BizJzjtxx.findByOId15", query = "SELECT b FROM BizJzjtxx b WHERE b.oId15 = :oId15"),
+    @NamedQuery(name = "BizJzjtxx.findByOIdck", query = "SELECT b FROM BizJzjtxx b WHERE b.oIdck = :oIdck"),
+    @NamedQuery(name = "BizJzjtxx.findByOBirthday", query = "SELECT b FROM BizJzjtxx b WHERE b.oBirthday = :oBirthday"),
+    @NamedQuery(name = "BizJzjtxx.findByOIdno", query = "SELECT b FROM BizJzjtxx b WHERE b.oIdno = :oIdno"),
+    @NamedQuery(name = "BizJzjtxx.findByOXzqhbm", query = "SELECT b FROM BizJzjtxx b WHERE b.oXzqhbm = :oXzqhbm"),
+    @NamedQuery(name = "BizJzjtxx.findByOMemberid", query = "SELECT b FROM BizJzjtxx b WHERE b.oMemberid = :oMemberid")})
 public class BizJzjtxx implements Serializable {
     private static final long serialVersionUID = 1L;
-    @Column(name = "XH")
     private Long xh;
     @Id
     @Basic(optional = false)
-    @Column(name = "JTLSID")
+    @Column(nullable = false, length = 32)
     private String jtlsid;
-    @Column(name = "HZSFZHM")
+    @Column(length = 18)
     private String hzsfzhm;
-    @Column(name = "JTBM")
+    @Column(length = 32)
     private String jtbm;
-    @Column(name = "JTLB")
+    @Column(length = 3)
     private String jtlb;
-    @Column(name = "ZYZPYY")
+    @Column(length = 3)
     private String zyzpyy;
-    @Column(name = "JTRK")
     private Short jtrk;
-    @Column(name = "BZRK")
     private Short bzrk;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(name = "ZSR")
+    @Column(precision = 8, scale = 2)
     private BigDecimal zsr;
-    @Column(name = "XZQHBM")
+    @Column(length = 12)
     private String xzqhbm;
-    @Column(name = "CZRQ")
+    @Column(length = 10)
     private String czrq;
-    @Column(name = "JBJGID")
+    @Column(length = 32)
     private String jbjgid;
-    @Column(name = "SPRQ")
+    @Column(length = 10)
     private String sprq;
-    @Column(name = "JZYWLX")
+    @Column(length = 3)
     private String jzywlx;
-    @Column(name = "JZZH")
+    @Column(length = 30)
     private String jzzh;
-    @Column(name = "ZJKM")
+    @Column(length = 15)
     private String zjkm;
-    @Column(name = "KHYH")
+    @Column(length = 4)
     private String khyh;
-    @Column(name = "KHMC")
+    @Column(length = 50)
     private String khmc;
-    @Column(name = "YHZH")
+    @Column(length = 30)
     private String yhzh;
-    @Column(name = "JZDZ")
+    @Column(length = 100)
     private String jzdz;
-    @Column(name = "ZLLX")
+    @Column(length = 1)
     private String zllx;
-    @Column(name = "CZSJ")
+    @Column(length = 19)
     private String czsj;
+    @Column(name = "O_FID", length = 100)
+    private String oFid;
+    @Column(name = "O_FNO", length = 100)
+    private String oFno;
+    @Column(name = "O_ID18", length = 100)
+    private String oId18;
+    @Column(name = "O_ID15", length = 100)
+    private String oId15;
+    @Column(name = "O_IDCK", length = 100)
+    private String oIdck;
+    @Column(name = "O_BIRTHDAY", length = 100)
+    private String oBirthday;
+    @Column(name = "O_IDNO", length = 100)
+    private String oIdno;
+    @Column(name = "O_XZQHBM", length = 100)
+    private String oXzqhbm;
+    @Column(name = "O_MEMBERID", length = 100)
+    private String oMemberid;
 
     public BizJzjtxx() {
     }
@@ -278,6 +302,78 @@ public class BizJzjtxx implements Serializable {
 
     public void setCzsj(String czsj) {
         this.czsj = czsj;
+    }
+
+    public String getOFid() {
+        return oFid;
+    }
+
+    public void setOFid(String oFid) {
+        this.oFid = oFid;
+    }
+
+    public String getOFno() {
+        return oFno;
+    }
+
+    public void setOFno(String oFno) {
+        this.oFno = oFno;
+    }
+
+    public String getOId18() {
+        return oId18;
+    }
+
+    public void setOId18(String oId18) {
+        this.oId18 = oId18;
+    }
+
+    public String getOId15() {
+        return oId15;
+    }
+
+    public void setOId15(String oId15) {
+        this.oId15 = oId15;
+    }
+
+    public String getOIdck() {
+        return oIdck;
+    }
+
+    public void setOIdck(String oIdck) {
+        this.oIdck = oIdck;
+    }
+
+    public String getOBirthday() {
+        return oBirthday;
+    }
+
+    public void setOBirthday(String oBirthday) {
+        this.oBirthday = oBirthday;
+    }
+
+    public String getOIdno() {
+        return oIdno;
+    }
+
+    public void setOIdno(String oIdno) {
+        this.oIdno = oIdno;
+    }
+
+    public String getOXzqhbm() {
+        return oXzqhbm;
+    }
+
+    public void setOXzqhbm(String oXzqhbm) {
+        this.oXzqhbm = oXzqhbm;
+    }
+
+    public String getOMemberid() {
+        return oMemberid;
+    }
+
+    public void setOMemberid(String oMemberid) {
+        this.oMemberid = oMemberid;
     }
 
     @Override
